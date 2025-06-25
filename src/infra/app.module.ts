@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { PrismaService } from './database/prisma/prisma.service';
-import { envSchema } from './env';
+import { envSchema } from './env/env';
 import { AuthModule } from './auth/auth.module';
 import { JwtStrategy } from './auth/jwt.strategy';
 import { HttpModule } from './http/http.modules';
+import { EnvService } from './env/env.service';
+import { EnvModule } from './env/env.module';
 
 @Module({
   imports: [
@@ -14,7 +15,8 @@ import { HttpModule } from './http/http.modules';
     }),
     AuthModule,
     HttpModule,
+    EnvModule,
   ],
-  providers: [JwtStrategy],
+  providers: [JwtStrategy, EnvService],
 })
 export class AppModule {}
